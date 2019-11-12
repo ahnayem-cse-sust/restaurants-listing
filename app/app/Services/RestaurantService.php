@@ -15,9 +15,9 @@ class RestaurantService
     public function dataGenerate()
     {
         $csvData = $this->csvToArray("Resturants.csv");
-
         $header = str_replace('"','',explode(',', $csvData[0][0]));
 
+        Restaurant::truncate();
         for ($i = 1; $i < count($csvData); $i++) {
             $arr = str_replace('"','',explode(',', $csvData[$i][0]));
             if(count($arr) > 21)
