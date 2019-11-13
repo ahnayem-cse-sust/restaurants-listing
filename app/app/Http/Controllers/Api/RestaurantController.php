@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Services\ApiResponseService;
 use Illuminate\Http\Request;
 use App\Services\RestaurantService;
 use App\Http\Controllers\Controller;
@@ -9,15 +10,20 @@ use App\Http\Controllers\Controller;
 class RestaurantController extends Controller
 {
     protected $restaurantService;
+    /**
+     * @var ApiResponseService
+     */
+    private $apiResponseService;
 
-    public function __construct(RestaurantService $restaurantService)
+    public function __construct(RestaurantService $restaurantService,ApiResponseService $apiResponseService)
     {
         $this->restaurantService = $restaurantService;
+        $this->apiResponseService = $apiResponseService;
     }
 
     public function dataGenerate(){
         $response = $this->restaurantService->dataGenerate();
-        die(json_encode($response));
+        die(json_encode($this->apiResponseService->response('success',$response)));
     }
 
     public function getRestaurant(){
@@ -28,6 +34,6 @@ class RestaurantController extends Controller
         }else{
             $response = $this->restaurantService->getRestaurant('open');
         }
-        die(json_encode($response));
+        die(json_encode($this->apiResponseService->response('success',$response)));
     }
 }
