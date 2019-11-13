@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\RestaurantService;
 use App\Http\Controllers\Controller;
 
-class RestaurantController extends Controller
+class RestaurantController5_12_300 extends Controller
 {
     protected $restaurantService;
 
@@ -28,6 +28,7 @@ class RestaurantController extends Controller
         }else{
             $response = $this->restaurantService->getRestaurant('open');
         }
-        die(json_encode($response));
+        $data = $this->restaurantService->nameTagChange($response);
+        die(json_encode($data));
     }
 }

@@ -16,6 +16,15 @@ use Illuminate\Http\Request;
 
 Route::get('restaurants/data-generate', "Api\RestaurantController@dataGenerate");
 
+Route::group(['prefix' => 'v6'], function () {
+    Route::get('restaurants', "Api\RestaurantController@getRestaurant");
+});
+
+Route::group(['prefix' => 'v5.12.300'], function () {
+    Route::get('restaurants', "Api\RestaurantController5_12_300@getRestaurant");
+});
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -15,16 +15,16 @@ class RestaurantService
     public function dataGenerate()
     {
         $csvData = $this->csvToArray("Resturants.csv");
-        $header = str_replace('"','',explode(',', $csvData[0][0]));
+        $header = str_replace('"', '', explode(',', $csvData[0][0]));
 
         Restaurant::truncate();
         for ($i = 1; $i < count($csvData); $i++) {
-            $arr = str_replace('"','',explode(',', $csvData[$i][0]));
-            if(count($arr) > 21)
-            {
-                unset($arr[21]);
+            $arr = str_replace('"', '', explode(',', $csvData[$i][0]));
+            if (count($arr) > 21) {
+                $arr[4] = $arr[4] . ',' . $arr[5];
+                unset($arr[5]);
             }
-            $d = array_combine($header,$arr);
+            $d = array_combine($header, $arr);
             $restaurant = new Restaurant();
             $restaurant->id = $d['id'];
             $restaurant->name = $d['name'];
@@ -49,7 +49,7 @@ class RestaurantService
             $restaurant->minimumOrderAmount = $d['minimumOrderAmount'];
             $restaurant->save();
         }
-        return[
+        return [
             'result' => true,
             'message' => "Data successfully updated!!"
         ];
@@ -74,6 +74,39 @@ class RestaurantService
             fclose($handle);
         }
 
+        return $data;
+    }
+
+    public function getRestaurant($sort_by = 'open')
+    {
+        switch ($sort_by){
+            case 'open':
+            case 'popularity':
+            case 'ratingAverage':
+            case 'bestMatch':
+                $sort_order = 'DESC';
+                break;
+            default:
+                $sort_order = 'ASC';
+                break;
+        }
+        return Restaurant::orderBy($sort_by, $sort_order)->get();
+    }
+
+    public function getRestaurantbyName($str)
+    {
+        return Restaurant::where("name","LIKE","%".$str."%")->get();
+    }
+
+    public function nameTagChange($response)
+    {
+        if(empty($response)) return $response;
+        $response = json_decode(json_encode($response),true);
+        $data = array_map(function ($arr){
+            $arr['RestaurantName'] = $arr['name'];
+            unset($arr['name']);
+            return $arr;
+        }, $response);
         return $data;
     }
 
