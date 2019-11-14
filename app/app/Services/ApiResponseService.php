@@ -23,27 +23,30 @@ class ApiResponseService
     }
 
     private function responseSuccess($data){
-        return [
+        $response =  [
             'result' => true,
             'code' => 200,
             'data' => $data
         ];
+        return response()->json($response, 200);
     }
 
     private function responseError(){
-        return [
+        $response =  [
             'result' => false,
             'code' => 501,
             'message' => 'Something Went Wrong!!'
         ];
+        return response()->json($response, 501);
     }
 
     private function responseNotFound(){
-        return [
+        $response =   [
             'result' => false,
             'code' => 404,
             'message' => 'Resource Not found!!'
         ];
+        return response()->json($response, 404);
     }
 
 }

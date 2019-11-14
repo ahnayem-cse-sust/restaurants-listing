@@ -23,7 +23,7 @@ class RestaurantController5_12_300 extends Controller
 
     public function dataGenerate(){
         $response = $this->restaurantService->dataGenerate();
-        die(json_encode($this->apiResponseService->response('success',$response)));
+        return $this->apiResponseService->response('success',$response);
     }
 
     public function getRestaurant(){
@@ -35,6 +35,6 @@ class RestaurantController5_12_300 extends Controller
             $response = $this->restaurantService->getRestaurant('open');
         }
         $data = $this->restaurantService->nameTagChange($response);
-        die(json_encode($this->apiResponseService->response('success',$data)));
+        return $this->apiResponseService->response('success',$data);
     }
 }
