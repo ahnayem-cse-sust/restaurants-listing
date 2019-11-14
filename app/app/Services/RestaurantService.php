@@ -50,7 +50,6 @@ class RestaurantService
             $restaurant->save();
         }
         return [
-            'result' => true,
             'message' => "Data successfully updated!!"
         ];
     }
