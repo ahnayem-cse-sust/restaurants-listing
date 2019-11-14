@@ -44,5 +44,7 @@ Descending order will be maintained for the fields -> open , popularity, ratingA
 
 Aescending order will be maintained for the fields -> deliveryCosts , minimumOrderAmount, deliveryCosts, averageProductPrice.
 
+### Versioning is applied on this project by the repplaceing the string "v6" of the url by the desired version number.
+Suppose, if the the default lising api url  is hit by "/api/v5.12.300/restaurants", this will response with the data where the field "name" is replaced by "RestaurantName". 
 
 Some basic test case are written on this project. To run these testcases just open the terminal at project root directory and run "composer test". 
