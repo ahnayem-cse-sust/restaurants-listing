@@ -19,7 +19,9 @@ DB_DATABASE=<database_name>
 DB_USERNAME=<username>
 
 DB_PASSWORD=<password>
-#### Step 5 : run the development server
+#### Step 5 : create the database tables
+$ php artisan migrate
+#### Step 6 : run the development server
 $ php artisan serve
 
 This project will be running on localhost:8000
